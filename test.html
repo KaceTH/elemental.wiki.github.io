@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <div id="textEditor" contenteditable="true">
+    <p>텍스트를 드래그해 보세요.</p>
+  </div>
+  <button id="insertLinkBtn">링크 삽입</button>
+</body>
+  <script>
+  var editor = document.getElementById("textEditor");
+  var insertLinkBtn = document.getElementById("insertLinkBtn");
+
+  insertLinkBtn.addEventListener("click", function() {
+    var selectedText = window.getSelection().toString();
+
+    if (selectedText !== "") {
+      var linkURL = prompt("링크 URL을 입력하세요:");
+      if (linkURL !== null && linkURL !== "") {
+        var linkElement = document.createElement("a");
+        linkElement.href = linkURL;
+        linkElement.textContent = selectedText;
+
+        var selectionRange = window.getSelection().getRangeAt(0);
+        selectionRange.deleteContents();
+        selectionRange.insertNode(linkElement);
+      }
+    }
+});
+  </script>
+</html>
